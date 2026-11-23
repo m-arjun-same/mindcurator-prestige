@@ -529,9 +529,9 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
 .t-statement{font-size:clamp(24px,2.9vw,36px);line-height:1.35;max-width:30em;font-weight:500}
 .t-about3{position:relative}
 .t-pinwrap{position:relative}
-.t-pintitle{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;pointer-events:none;z-index:2;padding:0 var(--m)}
+.t-pintitle{display:flex;flex-direction:column;justify-content:center;padding:clamp(70px,10vh,120px) var(--m) 10px}
 .t-pintitle span{font-family:"Martian Display",sans-serif;font-size:clamp(56px,11.5vw,168px);font-weight:600;letter-spacing:-.03em;line-height:.92}
-.t-pass{position:relative;z-index:1;margin-top:-100svh;padding:16svh 0 20svh}
+.t-pass{position:relative;z-index:1;padding:6svh 0 20svh}
 .t-pass-it{width:min(30vw,430px);margin:0 auto 60svh}
 .t-pass-it:nth-child(odd){transform:translateX(-16vw)}
 .t-pass-it:nth-child(even){transform:translateX(16vw)}

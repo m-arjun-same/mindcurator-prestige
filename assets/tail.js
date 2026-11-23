@@ -46,12 +46,12 @@
   var vids=[].slice.call(scene.querySelectorAll('.t-fv'));
   var dots=[].slice.call(scene.querySelectorAll('.t-dot'));
   var tab=document.getElementById('t-frame-tab');
-  var TABS=['Mayuri Footwears · Showcase','CityPaws Grooming · Houston','Café Breizh · Las Vegas','Moonmelt Café · Night Café','Velmara · Fashion'];
+  var TABS=['Portfolio websites · your work, on show','Business websites · your shopfront, online','Custom websites · interactive & 3D','Website redesigns · old site, reborn','Consulting · an honest review'];
   var cur=-1;
   function set(i){ if(i===cur) return; cur=i;
     panels.forEach(function(p,j){ p.classList.toggle('is-on',j===i); });
     dots.forEach(function(d,j){ d.classList.toggle('is-on',j===i); });
-    vids.forEach(function(v,j){ v.classList.toggle('is-on',j===i); if(j===i){ if(!v.src&&v.dataset.src) v.src=v.dataset.src; if(v.src) v.play().catch(function(){}); } else v.pause(); });
+    vids.forEach(function(v,j){ v.classList.toggle('is-on',j===i); });
     if(tab) tab.textContent=TABS[i];
   }
   var mobile=matchMedia('(max-width:760px)');
