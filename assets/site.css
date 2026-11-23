@@ -4,7 +4,7 @@
 @font-face{font-family:"Martian Grotesk";font-style:normal;font-weight:300 700;font-display:swap;size-adjust:91%;src:url(fonts/martian-grotesk-lat.woff2) format("woff2");unicode-range:U+0020-007E,U+00A0-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212}
 @font-face{font-family:"Martian Grotesk";font-style:normal;font-weight:300 700;font-display:swap;size-adjust:91%;src:url(fonts/martian-grotesk-cyr.woff2) format("woff2");unicode-range:U+0400-045F,U+0490-0491,U+2116}
 :root{
-  --bg:#090c12; --bg-2:#11151c; --ink:#f2f2ef; --muted:#9aa0aa;
+  --bg:#0a1533; --bg-2:#12204a; --ink:#f2f2ef; --muted:#9aa0aa;
   --accent:#fb5e28; --accent-hi:#ff7a4d; --accent-ink:#090c12;
   --inv-bg:#f2f2ef; --inv-ink:#090c12; --inv-muted:#4d525b; --scrim:rgba(9,12,18,.64);
   --s-small:14px; --s-body:clamp(16px,.15vw + 15.4px,17px); --s-lead:clamp(20px,.9vw + 12px,26px);
@@ -540,7 +540,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
 .t-pass-it figcaption{margin-top:14px;max-width:300px}
 .t-pass-it figcaption b{display:block;font-size:18px;margin-bottom:5px}
 .t-pass-it figcaption span{color:var(--muted);font-size:16px;line-height:1.5}
-.t-fansec{background:#05070a}
+.t-fansec{background:#060f2a}
 .t-fan{height:400svh;position:relative}
 .t-fan-stage{position:sticky;top:0;height:100svh;overflow:hidden}
 .t-fan-head{position:absolute;top:110px;left:var(--m);max-width:520px;z-index:3}
@@ -554,8 +554,8 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
 .t-card[data-c="0"]{background:var(--accent);color:var(--accent-ink)}
 .t-card[data-c="1"]{background:var(--inv-bg);color:var(--inv-ink)}
 .t-card[data-c="2"]{background:#39415a;color:var(--ink)}
-.t-card[data-c="3"]{background:#171c26;color:var(--ink)}
-.t-verbs{background:#05070a}
+.t-card[data-c="3"]{background:#1a2a5e;color:var(--ink)}
+.t-verbs{background:#060f2a}
 .t-verb-panel{position:relative;height:150svh;overflow:hidden}
 .t-verb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5)}
 .t-verb-word{position:sticky;top:36svh;font-family:"Martian Display",sans-serif;font-size:clamp(64px,15.5vw,280px);font-weight:700;letter-spacing:-.03em;text-align:center;line-height:1;color:var(--ink);text-shadow:0 4px 44px rgba(5,6,9,.65);padding-top:6svh}
@@ -582,7 +582,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
 .t-faq3-h{font-size:clamp(26px,2.6vw,40px);font-weight:600;color:var(--muted)}
 .t-faq3-row h3{font-size:clamp(24px,2.5vw,38px);font-weight:600;line-height:1.12;letter-spacing:-.01em}
 .t-faq3-row p{color:var(--muted);font-size:17.5px;line-height:1.55;max-width:42ch}
-.t-cta{position:relative;height:92svh;overflow:hidden;background:#05070a}
+.t-cta{position:relative;height:92svh;overflow:hidden;background:#060f2a}
 .t-cta-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82)}
 .t-cta-in{position:absolute;right:var(--m);bottom:12%;width:min(38vw,520px)}
 .t-cta-h{font-size:clamp(30px,3.4vw,54px);font-weight:600;letter-spacing:-.02em;line-height:1.06;text-shadow:0 3px 26px rgba(5,6,9,.8)}
@@ -626,7 +626,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
   .t-faq3-row{grid-template-columns:1fr;margin-bottom:52px}
   .t-cta{height:auto;min-height:0}
   .t-cta-v{position:static;height:62svh;display:block}
-  .t-cta-in{position:static;width:auto;padding:36px var(--m) 54px;background:#05070a}
+  .t-cta-in{position:static;width:auto;padding:36px var(--m) 54px;background:#060f2a}
   .t-foot3-grid{grid-template-columns:1fr}
   .t-foot3-name{font-size:33vw}
 }
