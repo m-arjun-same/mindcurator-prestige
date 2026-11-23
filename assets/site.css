@@ -54,6 +54,8 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
 .veil{position:fixed;inset:0;background:var(--bg);z-index:46;transition:opacity .42s var(--ease-out)}
 .veil.is-off{opacity:0;pointer-events:none}
 .enter{position:fixed;inset:0;z-index:47;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:var(--bg);transition:opacity .42s var(--ease-out)}
+.dial-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.enter__word,.enter__hint,.enter__btns{position:relative;z-index:1}
 .enter.is-off{opacity:0;pointer-events:none}
 .enter__word{font-size:var(--s-display);font-weight:600;letter-spacing:-.03em;line-height:1;text-align:center;padding:0 var(--m)}
 .enter__hint{color:var(--muted);font-size:var(--s-small)}
