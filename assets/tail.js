@@ -83,3 +83,33 @@
   }
   onScroll(); set(0);
 })();
+
+/* tail v3: fan deal + CTA film */
+(function(){
+  var fan=document.getElementById('t-fan');
+  if(fan && !matchMedia('(max-width:760px)').matches){
+    var cards=[].slice.call(fan.querySelectorAll('.t-card'));
+    var ROT=[-4,2.5,-1.5,3.5];
+    function upd(){
+      var r=fan.getBoundingClientRect(), h=fan.offsetHeight-innerHeight;
+      var p=h>0? Math.min(1,Math.max(0,-r.top/h)) : 0;
+      cards.forEach(function(c,i){
+        var q=Math.min(1,Math.max(0,p*4-i));
+        var e=1-Math.pow(1-q,3);
+        var x=-375+i*250, y=(1-e)*115;
+        c.style.transform='translate(calc(-50% + '+x+'px), calc(-50% + '+y+'%)) rotate('+(ROT[i]*e)+'deg)';
+        c.style.opacity=e<=0? '0':'1';
+      });
+    }
+    addEventListener('scroll',function(){ requestAnimationFrame(upd); },{passive:true});
+    addEventListener('resize',upd); upd();
+  }
+  var cta=document.querySelector('.t-cta-v');
+  if(cta && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){
+      if(en.isIntersecting){ if(!cta.src&&cta.dataset.src) cta.src=cta.dataset.src; if(cta.src) cta.play().catch(function(){}); }
+      else cta.pause();
+    }); },{rootMargin:'200px'});
+    io.observe(cta);
+  }
+})();

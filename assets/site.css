@@ -523,3 +523,110 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
   .t-dots{display:none}
   .t-band{height:230px}
 }
+
+/* ---------- tail v3: pinned-poster direction (taste skill, seed 361526906) ---------- */
+.t-who{border-top:0}
+.t-statement{font-size:clamp(24px,2.9vw,36px);line-height:1.35;max-width:30em;font-weight:500}
+.t-about3{position:relative}
+.t-pinwrap{position:relative}
+.t-pintitle{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;pointer-events:none;z-index:2;padding:0 var(--m)}
+.t-pintitle span{font-family:"Martian Display",sans-serif;font-size:clamp(56px,11.5vw,168px);font-weight:600;letter-spacing:-.03em;line-height:.92}
+.t-pass{position:relative;z-index:1;margin-top:-100svh;padding:16svh 0 20svh}
+.t-pass-it{width:min(30vw,430px);margin:0 auto 60svh}
+.t-pass-it:nth-child(odd){transform:translateX(-16vw)}
+.t-pass-it:nth-child(even){transform:translateX(16vw)}
+.t-pass-it:last-child{margin-bottom:10svh}
+.t-pass-it img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.t-pass-it figcaption{margin-top:14px;max-width:300px}
+.t-pass-it figcaption b{display:block;font-size:18px;margin-bottom:5px}
+.t-pass-it figcaption span{color:var(--muted);font-size:16px;line-height:1.5}
+.t-fansec{background:#05070a}
+.t-fan{height:400svh;position:relative}
+.t-fan-stage{position:sticky;top:0;height:100svh;overflow:hidden}
+.t-fan-head{position:absolute;top:110px;left:var(--m);max-width:520px;z-index:3}
+.t-fan-head p{color:var(--muted);font-size:17px;margin-top:12px}
+.t-fan-cards{position:absolute;inset:0}
+.t-card{position:absolute;left:50%;top:56%;width:340px;height:400px;border-radius:20px;padding:28px;transform:translate(-50%,130%);display:flex;flex-direction:column}
+.t-card>*{max-width:216px}
+.t-card h3{font-size:27px;font-weight:700;line-height:1.08;letter-spacing:-.01em;text-transform:uppercase}
+.t-card img{width:60%;aspect-ratio:4/3;object-fit:cover;margin:auto 0}
+.t-card p{font-size:16px;line-height:1.45}
+.t-card[data-c="0"]{background:var(--accent);color:var(--accent-ink)}
+.t-card[data-c="1"]{background:var(--inv-bg);color:var(--inv-ink)}
+.t-card[data-c="2"]{background:#39415a;color:var(--ink)}
+.t-card[data-c="3"]{background:#171c26;color:var(--ink)}
+.t-verbs{background:#05070a}
+.t-verb-panel{position:relative;height:150svh;overflow:hidden}
+.t-verb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5)}
+.t-verb-word{position:sticky;top:36svh;font-family:"Martian Display",sans-serif;font-size:clamp(64px,15.5vw,280px);font-weight:700;letter-spacing:-.03em;text-align:center;line-height:1;color:var(--ink);text-shadow:0 4px 44px rgba(5,6,9,.65);padding-top:6svh}
+.t-verb-line{position:absolute;left:var(--m);bottom:34px;max-width:520px;font-size:18px;line-height:1.5;color:var(--ink);text-shadow:0 2px 16px rgba(5,6,9,.9)}
+.t-verb-line b{color:#fff}
+.t-ticketsec{background:var(--accent);padding:clamp(80px,12vh,140px) var(--m)}
+.t-ticket{position:relative;max-width:1060px;margin:0 auto;background:var(--inv-bg);color:var(--inv-ink);display:grid;grid-template-columns:7fr 3fr}
+.t-ticket-main{padding:44px}
+.t-ticket-t{font-size:clamp(28px,3.6vw,50px);font-weight:600;letter-spacing:-.02em;line-height:1.05;max-width:12em}
+.t-ticket-cols{display:flex;gap:44px;margin-top:56px;flex-wrap:wrap}
+.t-ticket-cols p{font-size:17px;line-height:1.55;color:var(--inv-muted)}
+.t-ticket-stub{padding:36px 16px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.t-ticket-price{font-family:"Martian Display",sans-serif;font-size:clamp(36px,4.3vw,60px);font-weight:700;letter-spacing:-.02em;margin-top:auto;white-space:nowrap}
+.t-ticket-from{color:var(--inv-muted);font-size:15px;margin-top:4px}
+.t-ticket-btn{margin-top:auto;background:var(--inv-ink);color:var(--inv-bg);font-weight:600;padding:17px 10px;width:100%;text-align:center;transition:background-color .25s}
+.t-ticket-btn:hover{background:#232833}
+.t-notch{position:absolute;left:70%;width:28px;height:28px;border-radius:50%;background:var(--accent);transform:translateX(-50%)}
+.t-notch-t{top:-14px}.t-notch-b{bottom:-14px}
+.t-perf{position:absolute;top:14px;bottom:14px;left:70%;width:6px;transform:translateX(-50%);background-image:radial-gradient(circle,var(--accent) 2.6px,transparent 3px);background-size:6px 17px;background-repeat:repeat-y}
+.t-ticket-note{text-align:center;color:var(--accent-ink);font-weight:600;margin-top:30px;font-size:17px}
+.t-faq3{padding:clamp(72px,11vh,130px) 0}
+.t-faq3-row{display:grid;grid-template-columns:1fr 1fr;gap:12px var(--g);margin-bottom:80px;align-items:baseline}
+.t-faq3-row:last-child{margin-bottom:0}
+.t-faq3-h{font-size:clamp(26px,2.6vw,40px);font-weight:600;color:var(--muted)}
+.t-faq3-row h3{font-size:clamp(24px,2.5vw,38px);font-weight:600;line-height:1.12;letter-spacing:-.01em}
+.t-faq3-row p{color:var(--muted);font-size:17.5px;line-height:1.55;max-width:42ch}
+.t-cta{position:relative;height:92svh;overflow:hidden;background:#05070a}
+.t-cta-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.82)}
+.t-cta-in{position:absolute;right:var(--m);bottom:12%;width:min(38vw,520px)}
+.t-cta-h{font-size:clamp(30px,3.4vw,54px);font-weight:600;letter-spacing:-.02em;line-height:1.06;text-shadow:0 3px 26px rgba(5,6,9,.8)}
+.t-cta-in p{font-size:17px;line-height:1.55;margin:18px 0 26px;text-shadow:0 2px 14px rgba(5,6,9,.85)}
+.t-foot3{background:var(--inv-bg);color:var(--inv-ink);overflow:hidden;padding-top:clamp(70px,10vh,110px)}
+.t-foot3-grid{display:grid;grid-template-columns:7fr 3fr;gap:40px}
+.t-foot3-h{font-size:clamp(38px,4.8vw,72px);font-weight:600;letter-spacing:-.025em;line-height:1.02}
+.t-form--foot{margin-top:36px;max-width:520px}
+.t-form--foot label{color:var(--inv-muted)}
+.t-form--foot input,.t-form--foot textarea{background:#fff;border-color:rgba(9,12,18,.25);color:var(--inv-ink)}
+.t-form--foot .t-form-note{color:var(--inv-muted)}
+.t-foot3-btn{background:var(--inv-ink);color:var(--inv-bg);font-weight:600;padding:16px 22px;border-radius:999px;justify-self:start;transition:background-color .25s}
+.t-foot3-btn:hover{background:#232833}
+.t-foot3-links{display:flex;flex-direction:column;gap:14px;font-size:16px;font-weight:600;padding-top:10px}
+.t-foot3-links a:hover{color:var(--accent)}
+.t-foot3-legal{display:flex;justify-content:space-between;gap:14px 40px;flex-wrap:wrap;color:var(--inv-muted);font-size:13.5px;margin-top:64px}
+.t-foot3-name{font-family:"Martian Display",sans-serif;font-size:27.5vw;font-weight:700;letter-spacing:-.03em;line-height:.8;white-space:nowrap;transform:translateY(26%);margin-top:10px}
+@media (max-width:760px){
+  .t-pintitle span{font-size:16.5vw}
+  .t-pass-it{width:72vw;margin-bottom:48px}
+  .t-pass-it:nth-child(odd){transform:translateX(-9vw)}
+  .t-pass-it:nth-child(even){transform:translateX(9vw)}
+  .t-fan{height:auto}
+  .t-fan-stage{position:static;height:auto;overflow:visible;padding:70px 0 84px}
+  .t-fan-head{position:static;padding:0 var(--m)}
+  .t-fan-cards{position:static;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px var(--m) 6px;margin-top:8px}
+  .t-card{position:static;flex:0 0 82%;transform:none!important;scroll-snap-align:start;height:380px}
+  .t-verb-panel{height:130svh}
+  .t-verb-word{font-size:23vw;top:34svh}
+  .t-verb-line{font-size:16px;right:var(--m)}
+  .t-ticket{grid-template-columns:1fr}
+  .t-ticket-main{padding:30px 24px}
+  .t-ticket-cols{margin-top:34px;gap:22px}
+  .t-notch{left:auto;top:auto;bottom:auto}
+  .t-notch-t{left:-14px;top:62%}
+  .t-notch-b{left:auto;right:-14px;top:62%}
+  .t-perf{left:14px;right:14px;top:62%;bottom:auto;width:auto;height:6px;transform:none;background-repeat:repeat-x;background-size:17px 6px}
+  .t-ticket-stub{padding:44px 24px 26px}
+  .t-ticket-price{margin-top:0}
+  .t-ticket-btn{margin-top:26px}
+  .t-faq3-row{grid-template-columns:1fr;margin-bottom:52px}
+  .t-cta{height:auto;min-height:0}
+  .t-cta-v{position:static;height:62svh;display:block}
+  .t-cta-in{position:static;width:auto;padding:36px var(--m) 54px;background:#05070a}
+  .t-foot3-grid{grid-template-columns:1fr}
+  .t-foot3-name{font-size:33vw}
+}
