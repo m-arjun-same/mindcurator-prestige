@@ -353,16 +353,30 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
     v_lp=a_pos*vec2(gw,gh)*scale; v_uv=a_pos+0.5; v_z=cen.z; v_tile=a_c0.w; v_dim=vec2(gw,gh)*scale; v_flood=fi; }`;
   const fs=`#extension GL_OES_standard_derivatives : enable
   precision highp float;
-  uniform sampler2D u_atlas; uniform float u_F,u_front,u_band,u_show; uniform vec3 u_glowA,u_glowB,u_bg;
+  uniform sampler2D u_atlas; uniform float u_F,u_front,u_band,u_show,u_time; uniform vec3 u_glowA,u_glowB,u_bg;
   varying vec2 v_lp; varying vec2 v_uv; varying float v_z; varying float v_tile; varying vec2 v_dim; varying float v_flood;
   float rbox(vec2 p, vec2 b, float r){ vec2 q=abs(p)-b+r; return length(max(q,0.0))+min(max(q.x,q.y),0.0)-r; }
+  float shash(vec2 p){ return fract(sin(dot(p, vec2(127.1,311.7)))*43758.5453); }
+  float stars(vec2 p, float cells, float seed, float tw){
+    vec2 g=p*vec2(cells, cells*0.5625); vec2 id=floor(g); vec2 fr=fract(g)-0.5;
+    float h=shash(id+seed*17.0); vec2 off=vec2(shash(id+seed*29.0), shash(id+seed*47.0))-0.5;
+    float d=length(fr-off*0.7);
+    float star=smoothstep(0.17,0.0,d)*step(0.70,h);
+    float twk=0.55+0.45*sin(u_time*(1.0+tw*h)+h*40.0);
+    return star*twk*(0.35+0.65*h); }
   void main(){
     float r=min(0.032*v_dim.x, min(v_dim.x,v_dim.y)*0.5);
     float d=rbox(v_lp, v_dim*0.5, r);
     float a=clamp(0.5-d/max(fwidth(d),1e-4), 0.0, 1.0); if(a<=0.0) discard;
     vec2 f=clamp(v_uv,0.002,0.998);
-    vec2 uv=(vec2(mod(v_tile,4.0), floor(v_tile/4.0))+vec2(f.x,1.0-f.y))/vec2(4.0,5.0);
-    vec3 col=texture2D(u_atlas,uv).rgb;
+    /* sky: deep gradient + per-card nebula tint + two twinkling star layers */
+    vec3 col=mix(vec3(0.012,0.02,0.05), vec3(0.05,0.10,0.24), pow(f.y,1.3));
+    float neb=shash(vec2(v_tile,3.0));
+    vec3 nebCol=mix(vec3(0.10,0.16,0.38), vec3(0.23,0.12,0.34), neb);
+    col+=nebCol*0.55*exp(-pow(length((f-vec2(0.3+0.4*neb,0.65))*vec2(1.4,1.0)),2.0)*2.2);
+    col+=vec3(0.9,0.95,1.0)*stars(f, 26.0, v_tile, 2.0)*1.7;
+    col+=vec3(0.75,0.85,1.0)*stars(f+0.37, 13.0, v_tile+9.0, 1.2)*1.1;
+    col*=1.45;
     float fog=1.0-exp(-max(v_z-0.15*u_F,0.0)/(2.6*u_F));
     vec3 glow=mix(u_glowA,u_glowB, smoothstep(u_front-u_band,u_front+u_band,v_z));
     col+=glow*(0.10+v_flood*0.22);
@@ -397,7 +411,7 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
     gl.enableVertexAttribArray(aC1); gl.vertexAttribPointer(aC1,3,gl.FLOAT,false,36,24);
   }
   build(); addEventListener('resize',build);
-  const U={}; ['u_res','u_pp','u_F','u_travel','u_atlas','u_front','u_band','u_show','u_glowA','u_glowB','u_bg','u_flood','u_speed'].forEach(n=>U[n]=gl.getUniformLocation(pr,n));
+  const U={}; ['u_res','u_pp','u_F','u_travel','u_atlas','u_front','u_band','u_show','u_glowA','u_glowB','u_bg','u_flood','u_speed','u_time'].forEach(n=>U[n]=gl.getUniformLocation(pr,n));
   let cur=0, vel=0, lastT=performance.now(), show=.12, flood=0, prevTarget=0;
   (function draw(now){ requestAnimationFrame(draw); if(!motionOn) return;
     const dt=Math.min(.05,(now-lastT)/1000||.016); lastT=now;
@@ -425,7 +439,7 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
     gl.uniform1f(U.u_travel,cur*.55*1.1*F);
     gl.uniform1i(U.u_atlas,0);
     show+=((0.12+0.88*Math.min(1,Math.abs(vel)*1.5))-show)*(1-Math.exp(-dt*6));
-    gl.uniform1f(U.u_show,show);
+    gl.uniform1f(U.u_show,show); gl.uniform1f(U.u_time,now/1000);
     gl.uniform1f(U.u_front, 7.5*F - fr*2.0*F); gl.uniform1f(U.u_band,.9*F);
     gl.uniform3f(U.u_glowA,cA[0],cA[1],cA[2]); gl.uniform3f(U.u_glowB,cB[0],cB[1],cB[2]);
     gl.uniform3f(U.u_bg, 9/255,12/255,18/255);
