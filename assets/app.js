@@ -323,22 +323,38 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
       try{ const c=document.createElement('canvas'); c.width=c.height=8; const x=c.getContext('2d'); x.drawImage(im,0,0,8,8); const d=x.getImageData(0,0,8,8).data; let r=0,g=0,b=0; for(let j=0;j<d.length;j+=4){r+=d[j];g+=d[j+1];b+=d[j+2];} const n=d.length/4; tileCol[i]=[r/n/255,g/n/255,b/n/255]; }catch(e){}
       if(++loaded>=TILESRC.length) texDirty=true; }; });
   const vs=`attribute vec2 a_pos; attribute vec4 a_c0; attribute vec3 a_c1;
-  uniform vec2 u_res; uniform vec2 u_pp; uniform float u_F,u_travel;
-  varying vec2 v_lp; varying vec2 v_uv; varying float v_z; varying float v_tile; varying vec2 v_dim;
+  uniform vec2 u_res; uniform vec2 u_pp; uniform float u_F,u_travel,u_flood,u_speed;
+  varying vec2 v_lp; varying vec2 v_uv; varying float v_z; varying float v_tile; varying vec2 v_dim; varying float v_flood;
   vec4 project(vec3 p){ float d=max(u_F+p.z, u_F*0.02); float w=d/u_F;
     vec2 s=u_pp+p.xy/w; vec2 ndc=vec2(s.x/u_res.x*2.0-1.0, 1.0-s.y/u_res.y*2.0);
     float n=u_F*0.02, f=u_F*80.0; float zn=(f+n)/(f-n)-2.0*f*n/((f-n)*d); return vec4(ndc*w, zn*w, w); }
+  float hash(vec3 p){ return fract(sin(dot(p, vec3(12.9898,78.45,37.719)))*43758.5453); }
   void main(){ float gw=a_c1.x, gh=a_c1.y;
     float z=-0.78*u_F + mod(a_c0.z + u_travel + 0.78*u_F, 8.28*u_F);
-    float ry=a_c1.z; vec3 q=vec3(a_pos.x*gw, a_pos.y*gh, 0.0);
+    /* transit flood (ENGINE §B gating): per-card hash staggers the flood; ~62% of cards
+       leave the racks, cross the aisle behind the centre card, turn to face the viewer,
+       step nearer (z-) and grow; u_flood=0 at rest => transform is identity, rest frame unchanged. */
+    float side=sign(a_c0.x);
+    float hS=hash(vec3(a_c0.w, floor(a_c0.z*4.0), floor(a_c0.y*8.0)));
+    float hD=hash(vec3(floor(a_c0.z*4.0), a_c0.w*3.0, 7.0));
+    float hY=hash(vec3(a_c0.y*5.0, a_c0.w, floor(a_c0.z*4.0)));
+    float fi=smoothstep(0.0,1.0, clamp(u_flood*1.35 - hS*0.35, 0.0, 1.0)) * step(hS, 0.45);
+    float stretch=1.0 + u_speed*fi*0.15;
+    float scale=1.0 + fi*(0.12 + 0.20*hY);
+    vec3 q=vec3(a_pos.x*gw*stretch*scale, a_pos.y*gh*scale, 0.0);
+    float ry=mix(a_c1.z, (hY-0.5)*0.55, fi*0.88);
     float c=cos(ry), s=sin(ry); q=vec3(q.x*c, q.y, -q.x*s);
-    vec3 p=vec3(a_c0.x, a_c0.y, z)+q;
+    vec3 cen=vec3(a_c0.x, a_c0.y, z);
+    cen.x=mix(cen.x, -side*(0.30 + 0.60*hD)*gw, fi);
+    cen.y=mix(cen.y, (hD-0.5)*1.5*gh, fi*0.65);
+    cen.z=max(z - fi*(0.10 + 0.16*hD)*u_F, mix(-1.78*u_F, -0.55*u_F, fi));
+    vec3 p=cen+q;
     gl_Position=project(p);
-    v_lp=a_pos*vec2(gw,gh); v_uv=a_pos+0.5; v_z=z; v_tile=a_c0.w; v_dim=vec2(gw,gh); }`;
+    v_lp=a_pos*vec2(gw,gh)*scale; v_uv=a_pos+0.5; v_z=cen.z; v_tile=a_c0.w; v_dim=vec2(gw,gh)*scale; v_flood=fi; }`;
   const fs=`#extension GL_OES_standard_derivatives : enable
   precision highp float;
   uniform sampler2D u_atlas; uniform float u_F,u_front,u_band,u_show; uniform vec3 u_glowA,u_glowB,u_bg;
-  varying vec2 v_lp; varying vec2 v_uv; varying float v_z; varying float v_tile; varying vec2 v_dim;
+  varying vec2 v_lp; varying vec2 v_uv; varying float v_z; varying float v_tile; varying vec2 v_dim; varying float v_flood;
   float rbox(vec2 p, vec2 b, float r){ vec2 q=abs(p)-b+r; return length(max(q,0.0))+min(max(q.x,q.y),0.0)-r; }
   void main(){
     float r=min(0.032*v_dim.x, min(v_dim.x,v_dim.y)*0.5);
@@ -349,9 +365,10 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
     vec3 col=texture2D(u_atlas,uv).rgb;
     float fog=1.0-exp(-max(v_z-0.15*u_F,0.0)/(2.6*u_F));
     vec3 glow=mix(u_glowA,u_glowB, smoothstep(u_front-u_band,u_front+u_band,v_z));
-    col+=glow*0.10;
+    col+=glow*(0.10+v_flood*0.22);
     col*=mix(0.30,1.0, smoothstep(-0.45*u_F,0.6*u_F,v_z));
-    col=mix(col, u_bg+glow*0.06, fog*0.85);
+    col*=1.0+v_flood*0.75;
+    col=mix(col, u_bg+glow*0.06, fog*0.85*(1.0-v_flood*0.55));
     col*=mix(0.35,1.0,u_show);
     gl_FragColor=vec4(col, a*0.94*u_show); }`;
   function sh(t,src){ const s=gl.createShader(t); gl.shaderSource(s,src); gl.compileShader(s); if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)) console.warn(gl.getShaderInfoLog(s)); return s; }
@@ -359,8 +376,9 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
   const tex=gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D,tex);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
-  let buf=null, count=0, F=800;
+  let buf=null, count=0, F=800, floodAmp=1;
   function build(){ const r=cv.parentElement.getBoundingClientRect(); cv.width=Math.max(2,r.width); cv.height=Math.max(2,r.height); gl.viewport(0,0,cv.width,cv.height);
+    floodAmp=r.width<700?0.72:1.0;
     F=cv.height/2/Math.tan(29*Math.PI/180);
     const gf=$('#gate-frame'); const gw=Math.max(60, gf?gf.getBoundingClientRect().width:cv.width*.42), gh=gw*9/16;
     const eye=.42*gh, A=.68*gw, rw=.92*gw, rh=.92*gh, sp=.13*F, zMin=-.78*F, zMax=7.5*F;
@@ -379,13 +397,25 @@ $('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.se
     gl.enableVertexAttribArray(aC1); gl.vertexAttribPointer(aC1,3,gl.FLOAT,false,36,24);
   }
   build(); addEventListener('resize',build);
-  const U={}; ['u_res','u_pp','u_F','u_travel','u_atlas','u_front','u_band','u_show','u_glowA','u_glowB','u_bg'].forEach(n=>U[n]=gl.getUniformLocation(pr,n));
-  let cur=0, vel=0, lastT=performance.now(), show=.12;
+  const U={}; ['u_res','u_pp','u_F','u_travel','u_atlas','u_front','u_band','u_show','u_glowA','u_glowB','u_bg','u_flood','u_speed'].forEach(n=>U[n]=gl.getUniformLocation(pr,n));
+  let cur=0, vel=0, lastT=performance.now(), show=.12, flood=0, prevTarget=0;
   (function draw(now){ requestAnimationFrame(draw); if(!motionOn) return;
     const dt=Math.min(.05,(now-lastT)/1000||.016); lastT=now;
     const target=progress(heroEl)*4, w=6.2;
     vel+=(w*w*(target-cur)-2*w*vel)*dt; cur+=vel*dt;
     if(Math.abs(target-cur)<1e-4&&Math.abs(vel)<1e-4){ cur=target; vel=0; }
+    /* flood drive: spring speed + scroll ride speed (ENGINE §B: lens tau 5/s in, pulse tau 6/s);
+       fast in, slower settle; snaps to exactly 0 at rest so the rest frame is untouched. */
+    const tVel=dt>0?(target-prevTarget)/dt:0; prevTarget=target;
+    const speedN=Math.min(1,Math.abs(vel)/2.4), rideN=Math.min(1,Math.abs(tVel)/3.0);
+    /* reference flood gating is tied to frac(cur): full flood mid-way between stations,
+       zero at a station; gated by actual motion so a settled mid-drag hold stays dim. */
+    const frC=cur-Math.floor(cur), fracGate=(1-Math.abs(frC-0.5)*2)*Math.min(1,Math.abs(vel)*1.2+rideN);
+    const fTgt=Math.max(speedN, rideN*0.9, fracGate);
+    flood+=(fTgt-flood)*(1-Math.exp(-dt*(fTgt>flood?5.0:1.9)));
+    if(flood<0.004&&fTgt<0.01) flood=0;
+    gl.uniform1f(U.u_flood,flood*floodAmp);
+    gl.uniform1f(U.u_speed,Math.max(speedN,flood*0.6));
     if(texDirty){ gl.bindTexture(gl.TEXTURE_2D,tex); gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,atlas); texDirty=false; }
     const i0=Math.max(0,Math.min(4,Math.floor(cur))), i1=Math.min(4,i0+1), fr=cur-i0;
     const cA=tileCol[i0], cB=tileCol[i1];
