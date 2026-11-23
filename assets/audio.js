@@ -46,8 +46,10 @@ window.MCSnd=(function(){
       const tri=ctx.createOscillator(); tri.type='triangle'; tri.frequency.value=f*2; tri.detune.value=6; const tg=ctx.createGain(); tg.gain.value=.33; tri.connect(tg); tg.connect(lp);
       saw.start(t); tri.start(t); saw.stop(t+4.4); tri.stop(t+4.4); padNodes.push(saw,tri); });
     chordI++; }
-  function padStart(){ padChord(); padTimer=setInterval(padChord,3871); }
-  function padStop(){ clearInterval(padTimer); padTimer=null; padNodes.forEach(n=>{try{n.stop()}catch(e){}}); padNodes=[]; }
+  /* background music: a real track, looped low (replaced the synth pads 2026-11-23, Buddy's order) */
+  const music=new Audio('media/studio-music.mp3'); music.loop=true; music.volume=.32; music.preload='auto';
+  function padStart(){ music.play().catch(()=>{}); }
+  function padStop(){ music.pause(); }
   const SCALE=[57,60,62,64,67,69,72,74,76,79,81,84];
   return {
     get on(){return on;},
