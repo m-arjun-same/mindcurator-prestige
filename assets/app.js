@@ -11,14 +11,6 @@ const HERO=[
  {slug:'mayuri',title:'Mayuri Footwears',label:'Hyderabad',what:'The Showcase — a footwear house, shown like a gallery',film:'media/mayuri.mp4',poster:'media/posters/mayuri.jpg'},
  {slug:'moonmelt',title:'Moonmelt Café',label:'Night Café',what:'The Night Café — an own-design café site',film:'media/moonmelt.mp4',poster:'media/posters/moonmelt.jpg'}
 ];
-const SERVICES=[
- {t:'Landing pages',price:'₹4,999',slug:'velmara',title:'Velmara',label:'Fashion',film:'media/velmara.mp4',poster:'media/posters/velmara.jpg',s:'One page that says it all: who you are, what you sell, and one clear way to reach you.',ex:[['Velmara','Fashion'],['Zarnika','Saree house'],['Moonmelt Café','Night Café']]},
- {t:'Portfolio sites',price:'₹6,999',slug:'mayuri',title:'Mayuri Footwears',label:'Showcase',film:'media/mayuri.mp4',poster:'media/posters/mayuri.jpg',s:'Your work, shown like a gallery: projects first, words second, enquiries one tap away.',ex:[['Mayuri Footwears','Showcase'],['Vivant Vintage','Boston'],['Dark Horse Tattoo','Los Angeles']]},
- {t:'Business websites',price:'₹9,999',slug:'citypaws',title:'CityPaws Grooming',label:'Houston',film:'media/citypaws.mp4',poster:'media/posters/citypaws.jpg',s:'The full site for a working business: services, story, gallery, and every way to book or buy.',ex:[['CityPaws Grooming','Houston'],['Stoneforge Construction','Bengaluru'],['Café Breizh','Las Vegas']]},
- {t:'Full business sites',price:'₹19,999',slug:'cafe',title:'Café Breizh',label:'Las Vegas',film:'media/cafe.mp4',poster:'media/posters/cafe.jpg',s:'Everything above, plus the moving parts: video heroes, real 3D, and pages that feel alive.',ex:[['Café Breizh','3D hero'],['CityPaws Grooming','Video hero'],['Kapiloka Coffee','Tumbler 360']]},
- {t:'Ordering & e-commerce',price:'₹29,999',slug:'queens',title:"Queen's Bakery",label:'Ordering',film:'media/queens.mp4',poster:'media/posters/queens.jpg',s:'A shop that takes orders while you sleep: catalogue, cart, and a checkout customers finish.',ex:[["Queen's Bakery",'Ordering'],['Sri Ganesha Fireworks','Hyderabad'],['Mariglow Salon','Booking']]},
- {t:'Consulting',price:'₹999',slug:'kapiloka',title:'Kapiloka Coffee',label:'Tumbler 360',film:'media/kapiloka.mp4',poster:'media/posters/kapiloka.jpg',s:'One honest hour on your current site: what is losing you customers, and what to fix first.',ex:[['Site audits','Session'],['Rebuild plans','Session'],['Launch checks','Session']]}
-];
 const FULL=[
  {title:'Café Breizh',meta:'Las Vegas · Bakery site',film:'media/cafe.mp4',poster:'media/posters/cafe.jpg',what:'Bakery site crowned by a real 3D croissant'},
  {title:'CityPaws Grooming',meta:'Houston · Grooming site',film:'media/citypaws.mp4',poster:'media/posters/citypaws.jpg',what:'Full-motion site for a Houston grooming salon'},
@@ -60,38 +52,9 @@ HERO.forEach((p,i)=>{
 gf.addEventListener('click',()=>openViewer(HERO[heroIdx<0?0:heroIdx]));
 const gateVids=$$('.gate__v',gf), gateRows=$$('.gate__row',gf), dotBtns=$$('.dots__b',dots);
 
-const ml=$('#make-list'), wins=$('#make-wins');
-SERVICES.forEach((s,i)=>{
-  const li=document.createElement('li');
-  li.className='make__item'+(i===0?' is-on':'');
-  li.innerHTML=`<button class="make__b" type="button"><span class="make__n">0${i+1}</span><span class="make__t">${s.t}</span><span class="make__price">${s.price}</span></button>
-  <div class="make__more"><div>
-    <a class="make__mw" href="#" aria-label="${s.title} ${s.label}"><video class="make__v" data-src="${s.film}" poster="${s.poster}" muted loop playsinline preload="none" aria-hidden="true"></video><span class="make__tab"><b>${s.title}</b> <span>${s.label}</span></span><span class="make__go" aria-hidden="true">${playSVG}</span></a>
-    <p class="make__s">${s.s}</p>
-    <p class="make__ex">${s.ex.map(e=>`<a href="#" data-ex="${e[0]}">${e[0]}</a> <span class="make__lab">${e[1]}</span>`).join(', ')}</p>
-  </div></div>`;
-  li.querySelector('.make__b').addEventListener('click',()=>goTo(makeSeg(i)));
-  li.querySelector('.make__mw').addEventListener('click',e=>{e.preventDefault();openViewer(s);});
-  ml.appendChild(li);
-  const w=document.createElement('a');
-  w.className='make__win'+(i===0?' is-on':''); w.href='#';
-  w.innerHTML=`<video class="make__v" data-src="${s.film}" poster="${s.poster}" muted loop playsinline preload="none" aria-hidden="true"></video><span class="make__tab"><b>${s.title}</b> <span>${s.label}</span></span><span class="make__go" aria-hidden="true">${playSVG}</span>`;
-  w.addEventListener('click',e=>{e.preventDefault();openViewer(s);});
-  wins.appendChild(w);
-});
-const makeItems=$$('.make__item',ml), makeWins=$$('.make__win',wins);
-$$('[data-ex]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); const p=FULL.find(f=>f.title===a.dataset.ex)||HERO.find(f=>f.title===a.dataset.ex); if(p) openViewer(p); }));
 
-/* op planes */
-const OP=JSON.parse($('#op-data').textContent).ch;
-const planesWrap=$('#op-planes');
-OP.forEach((c,i)=>{
-  const pl=document.createElement('div'); pl.className='op-pl';
-  pl.innerHTML=`<p class="op-yr">Step ${c.n}</p><h3 class="op-tt">${c.t}</h3><p class="op-bd">${c.b}</p>`+
-   (c.media?`<div class="op-media"><img src="${c.media.poster}" alt="" loading="lazy"><span class="op-tab"><b>${c.media.t}</b><span> ${c.media.l}</span></span><span class="op-cnt">${c.n} / 06</span></div>`:'');
-  planesWrap.appendChild(pl);
-});
-const planes=$$('.op-pl',planesWrap);
+
+
 
 /* full ring items */
 const fl=$('#full-list');
@@ -108,10 +71,9 @@ const fullItems=$$('.full__it',fl), fullGroup=$('.full__g');
 
 /* ---------- state ---------- */
 let soundOn=false, entered=false, motionOn=!reduced;
-const heroEl=$('.hero'), makeScene=$('.make__scene'), opTrack=$('.op-track'), opStage=$('.op-stage');
+const heroEl=$('.hero');
 const vh=()=>innerHeight;
 function heroSeg(i){const top=heroEl.offsetTop;const h=heroEl.offsetHeight-vh();return top+(i+0.5)*(h/5);}
-function makeSeg(i){const top=makeScene.offsetTop;const h=makeScene.offsetHeight-vh();return top+(i+0.5)*(h/6);}
 function goTo(y){ if(window.__lenis) window.__lenis.scrollTo(y,{duration:1.1}); else scrollTo({top:y,behavior:'smooth'}); }
 
 /* ---------- Lenis ---------- */
@@ -134,65 +96,17 @@ function setHero(i){ if(i===heroIdx)return; heroIdx=i;
   dotBtns.forEach((d,j)=>{ if(j===i)d.setAttribute('aria-current','true'); else d.removeAttribute('aria-current'); });
   playOnly(gateVids,i);
 }
-function setMake(i){ if(i===makeIdx)return; const first=makeIdx<0; makeIdx=i;
-  if(!first&&window.MCSnd&&soundOn) MCSnd.tick(1,i%2?-.5:.5);
-  makeItems.forEach((it,j)=>it.classList.toggle('is-on',j===i));
-  makeWins.forEach((w,j)=>w.classList.toggle('is-on',j===i));
-  playOnly($$('.make__win .make__v'),i);
-  if(small()) playOnly($$('.make__item .make__v'),i);
-}
-/* op: chapters occupy first 44% of the track (reference timing), final holds after */
-const OP_END=0.44;
-function renderOp(p){
-  const fin=p>=OP_END;
-  if(fin!==opFin){ opFin=fin; opStage.classList.toggle('fin',fin); $('#op-final').classList.toggle('is-on',fin); }
-  const W=opStage.clientWidth,H=opStage.clientHeight,lx=W/2;
-  if(!fin){
-    const phase=p/OP_END*6, idx=Math.min(5,Math.floor(phase));
-    $('#op-n').textContent=OP[idx].n+' / 06'; $('#op-ct2').textContent=OP[idx].t; $('#op-year').textContent=OP[idx].yr;
-    planes.forEach((pl,i)=>{
-      const d=phase-i, pw=pl.offsetWidth, ph=pl.offsetHeight;
-      if(d<=-0.6||d>=1.6){ pl.style.visibility='hidden'; pl.style.opacity=0; return; }
-      const q=(d+0.6)/2.2, y=(1-q)*(H*1.12)-ph*0.55, x=(i%2===0)? lx-pw-16 : lx+16;
-      const op=Math.max(0,Math.min(1, q<0.12? q/0.12 : q>0.88? (1-q)/0.12 : 1));
-      pl.style.visibility='visible'; pl.style.opacity=op.toFixed(3);
-      pl.style.transform=`translate(${x}px,${y}px) scale(${0.88+0.2*Math.sin(q*Math.PI)})`;
-    });
-    drawLine(lx,H,phase);
-  } else {
-    planes.forEach(pl=>{pl.style.visibility='hidden';pl.style.opacity=0;});
-  }
-}
-const lineCv=$('.op-line'), lineCtx=lineCv.getContext('2d');
-function drawLine(lx,H,phase){
-  const w=lineCv.width=opStage.clientWidth, h=lineCv.height=opStage.clientHeight;
-  lineCtx.clearRect(0,0,w,h);
-  const idx=Math.min(5,Math.floor(phase)), d=phase-idx;
-  const q=(d+0.6)/2.2, dotY=(1-q)*(H*1.12)+40;
-  lineCtx.strokeStyle='rgba(242,242,239,.55)'; lineCtx.lineWidth=1.2; lineCtx.beginPath();
-  lineCtx.moveTo(lx,-10);
-  lineCtx.bezierCurveTo(lx,dotY-130, lx-30,dotY-50, lx,dotY);
-  lineCtx.lineTo(lx,dotY); lineCtx.stroke();
-  lineCtx.strokeStyle='rgba(242,242,239,.14)'; lineCtx.beginPath(); lineCtx.moveTo(lx,dotY); lineCtx.lineTo(lx,h+10); lineCtx.stroke();
-  lineCtx.font='500 11px "Martian Grotesk",sans-serif'; lineCtx.fillStyle='rgba(154,160,170,.9)';
-  planes.forEach((pl,i)=>{ if(pl.style.visibility==='visible'){ const y=parseFloat((pl.style.transform.match(/translate\([^,]+,\s*([\d.-]+)px/)||[])[1]); if(!isNaN(y)){ lineCtx.fillText(OP[i].yr, lx+12, y+4); lineCtx.fillRect(lx-7,y,6,1);} } });
-  lineCtx.save(); lineCtx.shadowColor='#fb5e28'; lineCtx.shadowBlur=16;
-  lineCtx.fillStyle='#fb5e28'; lineCtx.beginPath(); lineCtx.arc(lx,dotY,4.5,0,6.29); lineCtx.fill(); lineCtx.restore();
-}
 const back=$('#back'), fab=$('.fab');
 function onScroll(){
   scrollVel=Math.min(1,Math.abs(scrollY-lastY)/50); lastY=scrollY;
   const hp=progress(heroEl);
   setHero(Math.min(4,Math.floor(hp*5)));
   heroEl.classList.toggle('is-top',hp===0);
-  if(!small()) setMake(Math.min(5,Math.floor(progress(makeScene)*6))); else setMake(makeIdx<0?0:makeIdx);
-  renderOp(progress(opTrack));
-  back.classList.toggle('is-on', scrollY>heroEl.offsetHeight-vh()*0.6 && scrollY<opTrack.offsetTop-vh()*0.5);
+  back.classList.toggle('is-on', scrollY>heroEl.offsetHeight-vh()*0.6);
   fab.classList.toggle('is-on', small() || scrollY>heroEl.offsetHeight-vh());
 }
 addEventListener('scroll',()=>requestAnimationFrame(onScroll),{passive:true});
 addEventListener('resize',onScroll);
-if(small()) makeItems.forEach((it,i)=>it.querySelector('.make__b').addEventListener('click',()=>setMake(i)));
 
 /* ---------- enter gate ---------- */
 const words=$('#enter').dataset.words.split('|'); let wi=0;
@@ -303,10 +217,7 @@ $('#viewer-x').addEventListener('click',closeViewer);
 viewer.addEventListener('click',e=>{ if(e.target===viewer) closeViewer(); });
 addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeViewer(); closeMenu(); if(!full.hidden) setView('featured'); }});
 
-/* ---------- op again / motion ---------- */
-$('#op-again').addEventListener('click',()=>goTo(opTrack.offsetTop+2));
-$('#motion-sw').addEventListener('click',function(){ motionOn=!motionOn; this.setAttribute('aria-pressed',String(motionOn)); document.body.classList.toggle('still',!motionOn);
-  if(!motionOn&&window.__lenis){window.__lenis.destroy();window.__lenis=null;} });
+
 
 /* ---------- strip: WebGL atlas flight (traced mechanism, SKHILADZE-ENGINE §B) ----------
    Rack cards textured from a 4x5 poster atlas, custom project(), critically-damped
