@@ -38,3 +38,48 @@
     open('https://wa.me/919398359538?text='+encodeURIComponent(lines.join('\n')),'_blank');
   });
 })();
+
+/* tail v2: services scroll scene + parallax band */
+(function(){
+  var scene=document.getElementById('t-scene'); if(!scene) return;
+  var panels=[].slice.call(scene.querySelectorAll('.t-panel'));
+  var vids=[].slice.call(scene.querySelectorAll('.t-fv'));
+  var dots=[].slice.call(scene.querySelectorAll('.t-dot'));
+  var tab=document.getElementById('t-frame-tab');
+  var TABS=['Mayuri Footwears · Showcase','CityPaws Grooming · Houston','Café Breizh · Las Vegas','Moonmelt Café · Night Café','Velmara · Fashion'];
+  var cur=-1;
+  function set(i){ if(i===cur) return; cur=i;
+    panels.forEach(function(p,j){ p.classList.toggle('is-on',j===i); });
+    dots.forEach(function(d,j){ d.classList.toggle('is-on',j===i); });
+    vids.forEach(function(v,j){ v.classList.toggle('is-on',j===i); if(j===i){ if(!v.src&&v.dataset.src) v.src=v.dataset.src; if(v.src) v.play().catch(function(){}); } else v.pause(); });
+    if(tab) tab.textContent=TABS[i];
+  }
+  var mobile=matchMedia('(max-width:760px)');
+  function onScroll(){
+    if(mobile.matches) return;
+    var r=scene.getBoundingClientRect(), h=scene.offsetHeight-innerHeight;
+    var p=h>0? Math.min(1,Math.max(0,-r.top/h)) : 0;
+    set(Math.min(4,Math.floor(p*5)));
+  }
+  addEventListener('scroll',function(){ requestAnimationFrame(onScroll); },{passive:true});
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){
+    var h=scene.offsetHeight-innerHeight;
+    var y=scene.offsetTop + (i+0.5)*(h/5);
+    if(window.__lenis) window.__lenis.scrollTo(y,{duration:1.1}); else scrollTo({top:y,behavior:'smooth'});
+  }); });
+  if('IntersectionObserver' in window){
+    var io2=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) set(panels.indexOf(e.target)); }); },{rootMargin:'-42% 0px -42% 0px'});
+    panels.forEach(function(p){ io2.observe(p); });
+    var band=document.querySelector('.t-band-v');
+    if(band){ var io3=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ if(!band.src&&band.dataset.src){ band.src=band.dataset.src; band.play().catch(function(){}); } } else band.pause(); }); },{rootMargin:'300px'});
+      io3.observe(band);
+      var bandWrap=band.parentElement;
+      addEventListener('scroll',function(){ requestAnimationFrame(function(){
+        var r=bandWrap.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
+        var p=(r.top+r.height/2-innerHeight/2)/innerHeight;
+        band.style.transform='translateY('+(p*-26)+'px)';
+      }); },{passive:true});
+    }
+  }
+  onScroll(); set(0);
+})();
