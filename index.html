@@ -11,7 +11,9 @@
 <meta property="og:site_name" content="MindCurator Studio">
 <meta property="og:title" content="MindCurator Studio, websites people remember">
 <meta property="og:description" content="We curate your business into a website people remember.">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/martian-display-lat.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/martian-grotesk-lat.woff2">
+<link rel="stylesheet" href="assets/site.css?v=3">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"MindCurator Studio","url":"https://themindcuratorstudio.example","email":"themindcuratorstudio@gmail.com","telephone":"+91 93983 59538","address":{"@type":"PostalAddress","addressLocality":"Hyderabad","addressCountry":"IN"},"sameAs":["https://www.instagram.com/themindcurator_studio"]}</script>
 </head>
 <body>
@@ -33,7 +35,6 @@
     <li><a href="#about"><span class="menu__n" aria-hidden="true">02</span><span class="menu__w">About</span></a></li>
   </ol></nav>
   <div class="menu__view" role="group" aria-label="View"><span class="menu__k">View</span><button class="menu__vb" type="button" data-view="featured" aria-pressed="true">Featured</button><button class="menu__vb" type="button" data-view="full" aria-pressed="false">Full</button></div>
-  <p class="menu__contact"><a href="mailto:themindcuratorstudio@gmail.com">themindcuratorstudio@gmail.com</a></p>
 </div>
 
 <main>
@@ -51,6 +52,7 @@
     </div>
     <div class="dots" role="group" aria-label="Projects in the middle window" id="dots"></div>
     <p class="swipe" aria-hidden="true"><svg class="swipe__ic" viewBox="0 0 16 30"><path d="M2.6 26L8 20.6 13.4 26"/><path d="M2.6 17L8 11.6 13.4 17"/><circle cx="8" cy="4.4" r="2.5"/></svg><span class="swipe__t">Swipe up</span></p>
+    <a class="btn btn--tg hero__tg" href="https://wa.me/919398359538" target="_blank" rel="noopener"><span class="pt" aria-hidden="true"></span><span class="roll"><span>Write on WhatsApp</span><span aria-hidden="true" data-t="Write on WhatsApp"></span></span></a>
   </div>
 </section>
 
@@ -75,20 +77,18 @@
     <div class="op-stage">
       <canvas class="op-field" aria-hidden="true"></canvas>
       <canvas class="op-line" aria-hidden="true"></canvas>
+      <div class="op-fade" aria-hidden="true"></div>
+      <div class="op-planes" id="op-planes"></div>
       <div class="op-head">
         <h2 class="op-h" id="about-h"><span class="flock" aria-hidden="true"><svg viewBox="0 0 52.9 14"><path d="M1.00 1.4L6.76 8.23Q9.60 11.60 12.44 8.23L18.20 1.4"/><path d="M20.80 1.4L24.49 5.77Q26.30 7.93 28.12 5.77L31.81 1.4"/><path d="M33.47 1.4L35.83 4.20Q36.99 5.58 38.16 4.20L40.52 1.4"/><path d="M41.58 1.4L43.09 3.19Q43.84 4.07 44.58 3.19L46.09 1.4"/><path d="M46.77 1.4L47.74 2.55Q48.22 3.11 48.69 2.55L49.66 1.4"/><path d="M50.09 1.4L50.71 2.13Q51.02 2.50 51.32 2.13L51.94 1.4"/><circle cx="9.60" cy="7.32" r="2.4"/></svg></span>About</h2>
-        <p class="op-chap"><span class="op-n" id="op-n">01 / 06</span></p>
+        <p class="op-chap"><span class="op-n" id="op-n">01 / 06</span><span class="op-ct2" id="op-ct2">The brief</span></p>
       </div>
-      <p class="op-year" id="op-year" aria-hidden="true">01</p>
-      <div class="op-chapter" id="op-chapter">
-        <h3 class="op-ct" id="op-ct">The brief</h3>
-        <p class="op-cb" id="op-cb">A short call and a shorter form: what the business does, who it serves, and what the site must win.</p>
-      </div>
+      <p class="op-year" id="op-year" aria-hidden="true">Brief</p>
       <div class="op-final" id="op-final">
         <p class="op-word"><span class="op-w-a">MindCurator</span> <span class="op-w-b">Studio</span><span class="pt pt--stop"></span></p>
         <p class="op-copy">You get the whole cycle from one studio: brief, design, build, motion and launch — and a site your customers remember, not another template they forget.</p>
         <dl class="op-facts"><div><dt>Based in</dt><dd>Hyderabad, India</dd></div><div><dt>Founded</dt><dd>2026</dd></div><div><dt>Works</dt><dd>Remotely, worldwide</dd></div></dl>
-        <p class="op-cta"><a class="btn btn--wa" href="https://wa.me/919398359538" target="_blank" rel="noopener"><span class="pt" aria-hidden="true"></span><span class="roll"><span>Write on WhatsApp</span><span aria-hidden="true" data-t="Write on WhatsApp"></span></span></a><span class="op-cl"><a href="mailto:themindcuratorstudio@gmail.com">themindcuratorstudio@gmail.com</a><a href="https://www.instagram.com/themindcurator_studio" target="_blank" rel="noopener">Instagram</a></span></p>
+        <p class="op-cta"><a class="btn btn--tg" href="https://wa.me/919398359538" target="_blank" rel="noopener"><span class="pt" aria-hidden="true"></span><span class="roll"><span>Write on WhatsApp</span><span aria-hidden="true" data-t="Write on WhatsApp"></span></span></a><span class="op-cl"><a href="mailto:themindcuratorstudio@gmail.com">themindcuratorstudio@gmail.com</a><a href="https://www.instagram.com/themindcurator_studio" target="_blank" rel="noopener">Instagram</a></span></p>
         <p class="op-last"><span class="op-motto">We curate your business into a website people remember.</span><button class="op-again" type="button" id="op-again"><svg class="op-again__ic" viewBox="0 0 24 24" aria-hidden="true"><polyline points="1 4 1 10 7 10"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></svg>Watch again</button><button class="op-again motion-sw" type="button" id="motion-sw" aria-pressed="true"><span class="mo" aria-hidden="true"><span class="mo__arm"></span></span><span class="mo__on">Motion on</span><span class="mo__off">Motion off</span></button></p>
       </div>
       <p class="op-rotate"><span>Turn your phone upright to watch the story</span></p>
@@ -96,30 +96,32 @@
     <span class="op-end" id="contact"></span>
   </div>
   <div class="sr"><ol><li>The brief. A short call and a shorter form: what the business does, who it serves, and what the site must win.</li><li>The design. A sample first, in the business's own colours and type, approved before the build is final.</li><li>The build. Every page built complete at version one: layout, motion and media together, never in halves.</li><li>The motion. Scroll journeys, transitions and video, designed per site, never a default fade.</li><li>The launch. Checked on real phones at real widths, then live with every link working.</li><li>The handover. Files, access and a walkthrough are yours. The site belongs to the business, not the studio.</li></ol></div>
-  <script type="application/json" id="op-data">{"ch":[{"n":"01","t":"The brief","b":"A short call and a shorter form: what the business does, who it serves, and what the site must win."},{"n":"02","t":"The design","b":"A sample first, in the business's own colours and type — approved by you before the build is final."},{"n":"03","t":"The build","b":"Every page built complete at version one: layout, motion and media together, never in halves."},{"n":"04","t":"The motion","b":"Scroll journeys, section-to-section transitions and video, designed per site — never a default fade."},{"n":"05","t":"The launch","b":"Checked on real phones at real widths, then live on your domain with every link working."},{"n":"06","t":"The handover","b":"Files, access and a walkthrough are yours. The site belongs to the business, not the studio."}],"board":["Brief","Design","Build"],"pipe":["Sample","Build","Launch","Handover"]}</script>
+  <script type="application/json" id="op-data">{"ch": [{"n": "01", "t": "The brief", "b": "A short call and a shorter form: what the business does, who it serves, and what the site must win.", "yr": "Brief"}, {"n": "02", "t": "The design", "b": "A sample first, in the business's own colours and type — approved by you before the build is final.", "yr": "Design", "media": {"poster": "media/posters/mayuri.jpg", "t": "Mayuri Footwears", "l": "Showcase"}}, {"n": "03", "t": "The build", "b": "Every page built complete at version one: layout, motion and media together, never in halves.", "yr": "Build", "media": {"poster": "media/posters/citypaws.jpg", "t": "CityPaws Grooming", "l": "Houston"}}, {"n": "04", "t": "The motion", "b": "Scroll journeys, section-to-section transitions and video, designed per site — never a default fade.", "yr": "Motion", "media": {"poster": "media/posters/cafe.jpg", "t": "Café Breizh", "l": "Las Vegas"}}, {"n": "05", "t": "The launch", "b": "Checked on real phones at real widths, then live on your domain with every link working.", "yr": "Launch", "media": {"poster": "media/posters/queens.jpg", "t": "Queen's Bakery", "l": "Ordering"}}, {"n": "06", "t": "The handover", "b": "Files, access and a walkthrough are yours. The site belongs to the business, not the studio.", "yr": "Now"}], "board": ["Brief", "Design", "Build"], "pipe": ["Sample", "Build", "Launch", "Handover"]}</script>
 </section>
 </main>
 
 <section class="full" id="full" aria-label="All work" hidden>
   <canvas class="full__flow" aria-hidden="true"></canvas>
+  <canvas class="full__dial" aria-hidden="true"></canvas>
+  <div class="full__pt" aria-hidden="true"></div>
+  <div class="full__win" id="full-win" aria-hidden="true"><img class="full__img" alt="" decoding="async"><video class="full__v" muted loop playsinline preload="none" aria-hidden="true"></video></div>
   <div class="full__in">
-    <p class="full__hint"><span class="full__hs">14 sites, one studio</span><span class="full__hp">Point at a name to see it, click it to watch</span></p>
+    <p class="full__hint"><span class="full__hs" id="full-hs">14 sites, one studio</span><span class="full__hp">Point at a name to see it, click it to watch</span></p>
     <div class="full__lists">
       <p class="full__g">Websites</p>
       <ul class="full__list" id="full-list"></ul>
     </div>
     <p class="full__note">Every site above was designed and built by MindCurator Studio. Prices are in the Work section — no hidden costs.</p>
   </div>
-  <div class="full__win" id="full-win" aria-hidden="true"><img class="full__img" alt="" decoding="async"></div>
 </section>
 
 <nav class="back" id="back" aria-label="Page sections"><a class="back__mark" href="#top"><span class="name"><span class="name__a">MindCurator</span> <span class="name__b">Studio</span><span class="pt pt--stop" aria-hidden="true"></span></span></a><span class="back__nav"><a href="#work">Work</a><a href="#about">About</a></span><button class="back__menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button></nav>
 
-<aside class="view" aria-label="View"><button class="view__b" type="button" data-view="featured" aria-pressed="true"><span class="view__w">Featured</span></button><button class="view__b" type="button" data-view="full" aria-pressed="false" aria-controls="full"><span class="view__w">Full</span></button></aside>
+<aside class="view" aria-label="View"><button class="view__b" type="button" data-view="featured" aria-pressed="true"><span class="view__w">Featured</span><span class="view__pt" aria-hidden="true"></span></button><button class="view__b" type="button" data-view="full" aria-pressed="false" aria-controls="full"><span class="view__w">Full</span><span class="view__pt" aria-hidden="true"></span></button></aside>
 
-<aside class="dock" aria-label="Language and sound"><nav class="dock__lang" aria-label="Language"><a class="dock__l" href="./" hreflang="en" lang="en" aria-current="page">EN</a><span class="dock__pt" aria-hidden="true"></span></nav><button class="dock__sound" id="dock-sound" type="button" aria-pressed="false"><span class="dock__eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="dock__st">Sound off</span></button></aside>
+<aside class="dock" aria-label="Language and sound"><nav class="dock__lang" aria-label="Language"><a class="dock__l" href="./" hreflang="en" lang="en" aria-current="page">EN</a><span class="dock__l dock__l--off" aria-hidden="true">RU</span><span class="dock__pt" aria-hidden="true"></span></nav><button class="dock__sound" id="dock-sound" type="button" aria-pressed="false"><span class="dock__eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span class="dock__st">Sound off</span></button></aside>
 
-<aside class="fab-a" aria-label="Contact"><a class="fab" href="https://wa.me/919398359538" target="_blank" rel="noopener" aria-label="Write on WhatsApp"><span class="pt" aria-hidden="true"></span><span class="roll fab__long"><span>Write on WhatsApp</span><span aria-hidden="true" data-t="Write on WhatsApp"></span></span><span class="roll fab__short"><span>WhatsApp</span><span aria-hidden="true" data-t="WhatsApp"></span></span></a></aside>
+<aside class="fab-a" aria-label="Contact"><a class="fab" href="https://wa.me/919398359538" target="_blank" rel="noopener" aria-label="Write on WhatsApp"><span class="pt" aria-hidden="true"></span><span class="roll"><span>WhatsApp</span><span aria-hidden="true" data-t="WhatsApp"></span></span><span aria-hidden="true" data-t="WhatsApp"></span></span></a></aside>
 
 <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-labelledby="viewer-t">
   <div class="viewer__in">
@@ -129,13 +131,13 @@
       <p class="viewer__t" id="viewer-t"></p>
       <p class="viewer__w" id="viewer-w"></p>
     </div>
-    <button class="viewer__x" id="viewer-x" type="button">Close</button>
+    <button class="viewer__x btn btn--ink" id="viewer-x" type="button">Close</button>
   </div>
 </div>
 
-<div class="cur" aria-hidden="true"><span class="cur__p"></span><span class="cur__r"></span></div>
+<div class="cur" aria-hidden="true"><span class="cur__p"></span><span class="cur__r"></span><span class="cur__l"><svg class="cur__ic" viewBox="0 0 12 12" focusable="false"><path d="M3.6 2.1V9.9L10 6Z"/></svg><span class="cur__t">Watch</span></span></div>
 
 <script src="assets/lenis.min.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=3"></script>
 </body>
 </html>
