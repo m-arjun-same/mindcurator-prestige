@@ -94,6 +94,7 @@ a:hover .roll>span+span,button:hover .roll>span+span{transform:translateY(0);opa
 /* hero */
 .hero{position:relative;height:calc(var(--n,5)*56svh + 100svh);--gw:min(42vw,(100svh - 300px)*1.45);--gh:calc(var(--gw)*.5625);--gr:calc(var(--gw)*.032);--gy:calc(var(--gh)*.62 + 12.5svh);--tabk:1}
 .hero__pin{position:sticky;top:0;height:100svh;overflow:hidden}
+.strip{position:absolute;inset:0;width:100%;height:100%;z-index:0}
 .bar{position:absolute;top:0;left:0;right:0;z-index:6;display:flex;align-items:baseline;justify-content:space-between;gap:var(--g);padding:22px var(--m);font-size:var(--s-small);font-weight:500;line-height:1.2}
 .bar__mark{font-size:17px;letter-spacing:-.01em;white-space:nowrap}
 .bar__mark .pt--stop{width:.2em;height:.2em}
