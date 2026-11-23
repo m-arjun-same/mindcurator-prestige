@@ -197,7 +197,10 @@ if(small()) makeItems.forEach((it,i)=>it.querySelector('.make__b').addEventListe
 /* ---------- enter gate ---------- */
 const words=$('#enter').dataset.words.split('|'); let wi=0;
 const wInt=setInterval(()=>{ if(entered){clearInterval(wInt);return;} wi=(wi+1)%words.length; $('#enter-word').textContent=words[wi]; },900);
+/* gate waits for a click (reference has no auto-entry) and blocks scroll until then */
+document.body.classList.add('lock'); if(window.__lenis)window.__lenis.stop();
 function enter(withSound,instant){ if(entered)return; entered=true; soundOn=withSound; syncSound();
+  document.body.classList.remove('lock'); if(window.__lenis)window.__lenis.start();
   if(withSound&&window.MCSnd){ MCSnd.enable(true); MCSnd.tune(); MCSnd.charge(1.05); }
   const charged=!instant&&window.Dial&&Dial.release();
   const offAt=charged?1250:0;
@@ -207,7 +210,6 @@ function enter(withSound,instant){ if(entered)return; entered=true; soundOn=with
 }
 $('.enter__go').addEventListener('click',()=>enter(true));
 $('.enter__mute').addEventListener('click',()=>enter(false));
-setTimeout(()=>enter(false,true),6000);
 
 /* ---------- sound dock ---------- */
 function syncSound(){ const b=$('#dock-sound'); b.setAttribute('aria-pressed',String(soundOn)); b.querySelector('.dock__st').textContent=soundOn?'Sound on':'Sound off'; b.classList.toggle('is-on',soundOn); }
